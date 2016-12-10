@@ -206,6 +206,10 @@ function build_new()
   export COMPANY_NAME=$BUNDLE_VENDOR
   export STATIC_CXX=false
 
+  export MILESTONE="fcs"
+  export jdk_u=`echo $OBF_BUILD_NUMBER | sed "s/jdk8//" | cut -d- -f1 | sed 's/u//'`
+  export jdk_b=`echo $OBF_BUILD_NUMBER | sed "s/jdk8//" | cut -d- -f2`
+
   rm -rf $OBF_WORKSPACE_PATH/.ccache
   mkdir -p $OBF_WORKSPACE_PATH/.ccache
 
@@ -226,7 +230,7 @@ function build_new()
 
       bash $OBF_SOURCES_PATH/common/autoconf/configure --with-boot-jdk=$OBF_BOOTDIR --with-freetype=$OBF_FREETYPE_DIR --with-cacerts-file=$OBF_DROP_DIR/cacerts \
                --with-ccache-dir=$OBF_WORKSPACE_PATH/.ccache --enable-debug \
-               -with-build-number=$OBF_BUILD_DATE --with-milestone=$OBF_BUILD_NUMBER $EXTRA_FLAGS
+               -with-build-number=$jdk_b --with-update-version=$jdk_u $EXTRA_FLAGS
 
   else
 
@@ -245,7 +249,7 @@ function build_new()
 
       bash $OBF_SOURCES_PATH/common/autoconf/configure --with-boot-jdk=$OBF_BOOTDIR --with-freetype=$OBF_FREETYPE_DIR --with-cacerts-file=$OBF_DROP_DIR/cacerts \
                --with-ccache-dir=$OBF_WORKSPACE_PATH/.ccache \
-               -with-build-number=$OBF_BUILD_DATE --with-milestone=$OBF_MILESTONE $EXTRA_FLAGS
+               -with-build-number=$jdk_b --with-update-version=$jdk_u $EXTRA_FLAGS
 
   fi
 

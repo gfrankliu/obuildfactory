@@ -107,8 +107,9 @@ function build_old()
   NUM_CPUS=`grep "processor" /proc/cpuinfo | sort -u | wc -l`
   [ $NUM_CPUS -gt 8 ] && NUM_CPUS=8
 
-  export MILESTONE="$OBF_BUILD_NUMBER"
-  export BUILD_NUMBER="$OBF_BUILD_DATE"
+  export MILESTONE="fcs"
+  export BUILD_NUMBER=`echo $OBF_BUILD_NUMBER | sed "s/jdk7//" | cut -d- -f2`
+  export JDK_UPDATE_VERSION=`echo $OBF_BUILD_NUMBER | sed "s/jdk7//" | cut -d- -f1 | sed 's/u//'`
   export LD_LIBRARY_PATH=
   export ALT_BOOTDIR=$JAVA_HOME
   export ALLOW_DOWNLOADS=true
